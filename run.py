@@ -38,6 +38,29 @@ class GameField():
         """
         return self.ships
 
+    def draw_field(self):
+        """
+        Draws game field on the screen
+        """
+
+        print('-' * 40)
+        if self.player == 'player':
+            print(user_name + "'s field")
+        else:
+            print("Computer's field")
+        print('    A  B  C  D  E')
+        row_num = 1
+
+        for row in self.field:
+            row_2_draw = str(row_num) + ' '
+            for element in row:
+                # hides computer's ships from the player
+                if self.player != 'player' and i == ' >':
+                    element = ' .. '
+                row_2_draw = row_2_draw + element
+            print(row_2_draw)
+            row_num += 1
+
 
 def initial_screen():
     """
