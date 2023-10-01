@@ -39,10 +39,32 @@ class GameField():
         return self.ships
 
 
+def initial_screen():
+    """
+    First screen user sees. It asks user is he wants to start the game
+    and his name
+    """
+    print('-'*40)
+    print('Welcome to BATTLE SHIPS')
+    print('Board size: 5. Number of ships: 4')
+    print('-'*40)
+    s = None
+    while s != 'y':
+        s = input('To start the game enter "y": ')
+        s = s.lower() # in case if Caps lock is active
+        print('user input: '+s)
+    print('-'*40)
+    global user_name
+    while not user_name:
+        user_name = input('Please enter your name: ')
+        user_name = user_name[:10]
 def main():
     """
     Executes the main game code
     """
+
+    initial_screen()
+
     player_field = GameField('player', 4)
     computer_field = GameField('computer', 4)
     player_field.place_ships()
