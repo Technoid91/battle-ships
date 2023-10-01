@@ -32,6 +32,13 @@ class GameField():
                 self.field.append(row_list)
             row += 1
 
+    def ships_left(self):
+        """
+        Returns amount of the ships left
+        """
+        return self.ships
+
+
 def main():
     """
     Executes the main game code
@@ -40,5 +47,11 @@ def main():
     computer_field = GameField('computer', 4)
     player_field.place_ships()
     computer_field.place_ships()
+
+    while True:
+        user_ships = player_field.ships_left()
+        computer_ships = computer_field.ships_left()
+        if user_ships == 0 or computer_ships == 0:
+            break
 
 main()
