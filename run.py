@@ -15,6 +15,7 @@ class GameField():
         self.score = 0
         self.message = ''
         self.coordinates = ''
+        self.show_ships = False
 
     def place_ships(self):
         """
@@ -65,7 +66,9 @@ class GameField():
             for element in row:
                 # hides computer's ships from the player
                 if self.player != 'player' and element == ' >':
-                    element = ' .. '
+                    # if cheat mode disabled
+                    if not self.show_ships:
+                        element = ' .. '
                 row_2_draw = row_2_draw + element
             print(row_2_draw)
             row_num += 1
@@ -149,6 +152,19 @@ class GameField():
         """
         self.ships = 0
 
+    def cheat(self):
+        """
+        Reveals computer's ships on the field.
+        Secret cheating function, very handy for testing
+        (makes game extremely boring)
+        """
+        if self.show_ships:
+            self.show_ships = False
+            self.message = '--> CHEAT DISABLED! <--'
+        else:
+            self.show_ships = True
+            self.message = '--> CHEAT ENABLED! <--'
+
 
 def initial_screen():
     """
@@ -214,9 +230,14 @@ def game_round(player, computer):
     print('Pick coordinates to strike, e.g. B5\n(enter "exit" to quit)')
     print('-'*40)
     user_shoot = input('Enter here: ')
+    # Exiting the game
     if user_shoot == 'exit':
         computer.give_up()
         player.give_up()
+        return
+    # Cheat to reveal computer's ships
+    elif user_shoot == 'mi6':
+        computer.cheat()
         return
     correct_shoot = computer.validation(user_shoot)
     if correct_shoot:
