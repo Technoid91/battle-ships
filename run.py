@@ -58,11 +58,28 @@ def initial_screen():
     while not user_name:
         user_name = input('Please enter your name: ')
         user_name = user_name[:10]
+
+
+def clear_screen():
+    """
+    Wipes the console screen to refresh output information
+    on Windows, Linux and macOS.
+    Does not work on other (rare) operating systems
+    """
+    os_name = platform.system()
+    if os_name == 'Windows':
+        os.system('clr')
+    elif os_name == 'Linux' or 'Darvin':
+        os.system('clear')
+    else:
+        pass
+
+
 def main():
     """
     Executes the main game code
     """
-
+    clear_screen()
     initial_screen()
 
     player_field = GameField('player', 4)
@@ -71,6 +88,7 @@ def main():
     computer_field.place_ships()
 
     while True:
+        clear_screen()
         user_ships = player_field.ships_left()
         computer_ships = computer_field.ships_left()
         if user_ships == 0 or computer_ships == 0:
