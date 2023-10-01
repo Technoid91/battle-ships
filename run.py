@@ -107,6 +107,35 @@ class GameField():
             self.message = 'Only letter and figure.\nFor example: B2'
             return False
 
+    def shoot(self):
+        """
+        Transforms user's coordinates and informs if he missed or not.
+        Also makes computer's move
+        """
+        # User's shoot
+        if self.player == 'computer':
+            coordinates = self.coordinates
+            x = int(coordinates[1:])     # rows
+            y = int(coordinates[:-1])    # columns
+            field_point = self.field[x][y]
+        else:
+            # Computer's shoot
+            while True:
+                x = randint(0, 4)
+                y = randint(0, 4)
+                field_point = self.field[x][y]
+                # Avoids repetitions in shoots
+                if field_point == ' .. ' or field_point == ' >':
+                    break
+        if field_point == ' >':
+            self.ships -= 1
+            self.field[x][y] = ' X '  # drowned ship
+            self.message = '\n\tNICE SHOT!' if self.player == 'computer' else ' '
+            self.score += 1
+        else:
+            self.message = '\n\t       missed' if self.player == 'computer' else ' '
+            self.field[x][y] = ' _ '  # missed target
+
 
 def initial_screen():
     """
@@ -174,7 +203,8 @@ def game_round(player, computer):
     user_shoot = input('Enter here: ')
     correct_shoot = computer.validation(user_shoot)
     if correct_shoot:
-        pass
+        computer.shoot()
+        player.shoot()
 
 
 
