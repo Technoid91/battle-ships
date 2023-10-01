@@ -20,7 +20,7 @@ class GameField():
         """
         Randomly places the ships on the game's field
         """
-        #the row without ships
+        # the row without ships
         skip_row = randint(0, self.ships)
         ships = self.ships
         row = 0
@@ -136,6 +136,13 @@ class GameField():
             self.message = '\n\t       missed' if self.player == 'computer' else ' '
             self.field[x][y] = ' _ '  # missed target
 
+    def stat(self):
+        """
+        Returns the score based on how many
+        enemy's ships destroyed
+        """
+        return self.score
+
 
 def initial_screen():
     """
@@ -149,7 +156,7 @@ def initial_screen():
     s = None
     while s != 'y':
         s = input('To start the game enter "y": ')
-        s = s.lower() # in case if Caps lock is active
+        s = s.lower()  # in case if Caps lock is active
         print('user input: '+s)
     print('-'*40)
     global user_name
@@ -231,5 +238,28 @@ def main():
         game_interface(game_info)
 
         game_round(player_field, computer_field)
+
+    # End of the game
+    clear_screen()
+    print('\n\n' + '*' * 30)
+
+    player_score = computer_field.stat()
+    computer_score = player_field.stat()
+    # User wins
+    if user_ships > computer_ships:
+
+        print('\tCONGRATULATIONS!')
+        print('*' * 30)
+        print(f'\t{user_name} WINS!')
+    # User loses
+    else:
+        print(f'\tSorry, {user_name}')
+        print('*' * 30)
+        print("Your fleet was destroyed")
+    print(f'SCORE:  {player_score}:{computer_score}')
+    print('*' * 30)
+    input('press "enter" to exit')
+    clear_screen()
+
 
 main()
