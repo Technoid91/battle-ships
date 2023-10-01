@@ -2,6 +2,7 @@ import os
 import platform
 from random import randint
 
+user_name = ''
 class GameField():
 
     def __init__(self, player, ships):
@@ -12,6 +13,7 @@ class GameField():
         self.ships = ships
         self.field = []
         self.score = 0
+        self.message = ''
 
     def place_ships(self):
         """
@@ -38,6 +40,12 @@ class GameField():
         """
         return self.ships
 
+    def get_message(self):
+        """
+        Returns help message for player depending on his actions
+        """
+        return self.message
+
     def draw_field(self):
         """
         Draws game field on the screen
@@ -55,7 +63,7 @@ class GameField():
             row_2_draw = str(row_num) + ' '
             for element in row:
                 # hides computer's ships from the player
-                if self.player != 'player' and i == ' >':
+                if self.player != 'player' and element == ' >':
                     element = ' .. '
                 row_2_draw = row_2_draw + element
             print(row_2_draw)
@@ -98,6 +106,37 @@ def clear_screen():
         pass
 
 
+def game_interface(game_info):
+    '''
+    Shows informative game interface at the top of the screen.
+    3 arguments are required: help message, amount of user's
+    ships left, amount of computer_ships
+    '''
+    user_ships = game_info[0]
+    computer_ships = game_info[1]
+    message = game_info[2]
+    print('------------BATTLE SHIPS------------')
+    print(f'Your ships: {user_ships}  |  Computer ships: {computer_ships}')
+    print('-'*40)
+    if message:
+        print(message)
+    else:
+        print('\n')
+
+
+def game_round(player, computer):
+    """
+    Draws game field and ask user to pick coordinates
+    """
+    player.draw_field()
+    computer.draw_field()
+    print('-'*40)
+    print('Pick coordinates to strike, e.g. B5\n(enter "exit" to quit)')
+    print('-'*40)
+    user_shoot = input('Enter here: ')
+
+
+
 def main():
     """
     Executes the main game code
@@ -116,5 +155,10 @@ def main():
         computer_ships = computer_field.ships_left()
         if user_ships == 0 or computer_ships == 0:
             break
+        help_message = computer_field.get_message()
+        game_info = [user_ships, computer_ships, help_message]
+        game_interface(game_info)
+
+        game_round(player_field, computer_field)
 
 main()
