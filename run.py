@@ -143,6 +143,12 @@ class GameField():
         """
         return self.score
 
+    def give_up(self):
+        """
+        Makes amount of ships 0
+        """
+        self.ships = 0
+
 
 def initial_screen():
     """
@@ -208,11 +214,14 @@ def game_round(player, computer):
     print('Pick coordinates to strike, e.g. B5\n(enter "exit" to quit)')
     print('-'*40)
     user_shoot = input('Enter here: ')
+    if user_shoot == 'exit':
+        computer.give_up()
+        player.give_up()
+        return
     correct_shoot = computer.validation(user_shoot)
     if correct_shoot:
         computer.shoot()
         player.shoot()
-
 
 
 def main():
@@ -231,6 +240,7 @@ def main():
         clear_screen()
         user_ships = player_field.ships_left()
         computer_ships = computer_field.ships_left()
+        # Game ends when one of the players is out of ships
         if user_ships == 0 or computer_ships == 0:
             break
         help_message = computer_field.get_message()
@@ -241,13 +251,17 @@ def main():
 
     # End of the game
     clear_screen()
+    # Exit before game is finished
+    if user_ships + computer_ships == 0:
+        print(f'Bye, {user_name}...')
+        return
+
     print('\n\n' + '*' * 30)
 
     player_score = computer_field.stat()
     computer_score = player_field.stat()
     # User wins
     if user_ships > computer_ships:
-
         print('\tCONGRATULATIONS!')
         print('*' * 30)
         print(f'\t{user_name} WINS!')
