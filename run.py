@@ -14,6 +14,7 @@ class GameField():
         self.field = []
         self.score = 0
         self.message = ''
+        self.coordinates = ''
 
     def place_ships(self):
         """
@@ -69,6 +70,43 @@ class GameField():
             print(row_2_draw)
             row_num += 1
 
+    def validation(self, coordinates):
+        """
+        Checks if the user's coordinates are correct
+        """
+
+        self.coordinates = coordinates
+        columns = ['A', 'B', 'C', 'D', 'E']
+        rows = ['1', '2', '3', '4', '5']
+        # Checks if it's just two characters
+        if len(coordinates) == 2:
+            column = coordinates[:-1].upper()
+            row = coordinates[1:]
+            # Checks if coordinates are in valid range
+            if column in columns:
+                y = columns.index(column)
+            # Checks if coordinates are specified in the correct order
+            elif column in rows:
+                self.message = 'Wrong value\nLetter then figure. For example: B2'
+                return False
+            else:
+                self.message = 'Wrong value\nLetter must be from A to E'
+                return False
+            if row in rows:
+                x = rows.index(row)
+            else:
+                self.message = 'Please enter letter then figure.\nFigure must be from 1 to 5'
+                return False
+            # Checks if user picked the same coordinates as before
+            if self.field[x][y] == ' _ ' or self.field[x][y] == ' X ':
+                self.message = 'This sector is already clear.\nPick another one'
+                return False
+            self.coordinates = str(y) + str(x)
+            return True
+        else:
+            self.message = 'Only letter and figure.\nFor example: B2'
+            return False
+
 
 def initial_screen():
     """
@@ -103,15 +141,15 @@ def clear_screen():
     elif os_name == 'Linux' or 'Darvin':
         os.system('clear')
     else:
-        pass
+        return
 
 
 def game_interface(game_info):
-    '''
+    """
     Shows informative game interface at the top of the screen.
     3 arguments are required: help message, amount of user's
     ships left, amount of computer_ships
-    '''
+    """
     user_ships = game_info[0]
     computer_ships = game_info[1]
     message = game_info[2]
@@ -134,6 +172,9 @@ def game_round(player, computer):
     print('Pick coordinates to strike, e.g. B5\n(enter "exit" to quit)')
     print('-'*40)
     user_shoot = input('Enter here: ')
+    correct_shoot = computer.validation(user_shoot)
+    if correct_shoot:
+        pass
 
 
 
