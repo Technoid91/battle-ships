@@ -33,8 +33,8 @@ class GameField:
                 self.field.append(row_list)
             else:
                 column = randint(0, 4)
-                # ' >' - the ship symbol
-                row_list[column] = ' >'
+                # ' > ' - the ship symbol
+                row_list[column] = ' > '
                 self.field.append(row_list)
             row += 1
 
@@ -55,19 +55,19 @@ class GameField:
         Draws game field on the screen
         """
 
-        print('-' * 40)
+        print('-' * 35)
         if self.player == 'player':
             print(user_name + "'s field")
         else:
             print("Computer's field")
-        print('    A  B  C  D  E')
+        print('   A    B    C    D    E')
         row_num = 1
 
         for row in self.field:
             row_2_draw = str(row_num) + ' '
             for element in row:
                 # hides computer's ships from the player
-                if self.player != 'player' and element == ' >':
+                if self.player != 'player' and element == ' > ':
                     # if cheat mode disabled
                     if not self.show_ships:
                         element = ' .. '
@@ -103,7 +103,7 @@ class GameField:
                 self.message = 'Please enter letter then figure.\nFigure must be from 1 to 5'
                 return False
             # Checks if user picked the same coordinates as before
-            if self.field[x][y] == ' _ ' or self.field[x][y] == ' X ':
+            if self.field[x][y] == '  _ ' or self.field[x][y] == ' X ':
                 self.message = 'This sector is already clear.\nPick another one'
                 return False
             self.coordinates = str(y) + str(x)
@@ -132,14 +132,14 @@ class GameField:
                 # Avoids repetitions in shoots
                 if field_point == ' .. ' or field_point == ' >':
                     break
-        if field_point == ' >':
+        if field_point == ' > ':
             self.ships -= 1
             self.field[x][y] = ' X '  # drowned ship
             self.message = '\n\tNICE SHOT!' if self.player == 'computer' else ' '
             self.score += 1
         else:
             self.message = '\n\t       missed' if self.player == 'computer' else ' '
-            self.field[x][y] = ' _ '  # missed target
+            self.field[x][y] = '  _ '  # missed target
 
     def stat(self):
         """
@@ -162,10 +162,10 @@ class GameField:
         """
         if self.show_ships:
             self.show_ships = False
-            self.message = '--> CHEAT DISABLED! <--'
+            self.message = '\n--> CHEAT DISABLED! <--'
         else:
             self.show_ships = True
-            self.message = '--> CHEAT ENABLED! <--'
+            self.message = '\n--> CHEAT ENABLED! <--'
 
 
 def initial_screen():
@@ -173,16 +173,16 @@ def initial_screen():
     First screen user sees. It asks user is he wants to start the game
     and his name
     """
-    print('-' * 40)
+    print('-' * 35)
     print('Welcome to BATTLE SHIPS')
     print('Board size: 5. Number of ships: 4')
-    print('-' * 40)
+    print('-' * 35)
     s = None
     while s != 'y':
         s = input('To start the game enter "y": \n')
         s = s.lower()  # in case if Caps lock is active
         print('user input: ' + s)
-    print('-' * 40)
+    print('-' * 35)
     global user_name
     while not user_name:
         user_name = input('Please enter your name: \n')
@@ -215,7 +215,7 @@ def game_interface(game_info):
     message = game_info[2]
     print('------------BATTLE SHIPS------------')
     print(f'Your ships: {user_ships}  |  Computer ships: {computer_ships}')
-    print('-' * 40)
+    print('-' * 35)
     if message:
         print(message)
     else:
@@ -228,9 +228,9 @@ def game_round(player, computer):
     """
     player.draw_field()
     computer.draw_field()
-    print('-' * 40)
+    print('-' * 35)
     print('Pick coordinates to strike, e.g. B5\n(enter "exit" to quit)')
-    print('-' * 40)
+    print('-' * 35)
     user_shoot = input('Enter here: \n')
     # Exiting the game
     if user_shoot == 'exit':
@@ -286,15 +286,15 @@ def main():
     # User wins
     if user_ships > computer_ships:
         print('\tCONGRATULATIONS!')
-        print('*' * 30)
+        print('*' * 35)
         print(f'\t{user_name} WINS!')
     # User loses
     else:
         print(f'\tSorry, {user_name}')
-        print('*' * 30)
+        print('*' * 35)
         print("Your fleet was destroyed")
     print(f'SCORE:  {player_score}:{computer_score}')
-    print('*' * 30)
+    print('*' * 35)
     input('press "enter" to exit\n')
     clear_screen()
 
