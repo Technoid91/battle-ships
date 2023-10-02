@@ -1,32 +1,124 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+# Battle ships
+<hr>
 
-Welcome,
+Classic logic game, runs in Code Institute mock terminal on Heroku
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **March 14, 2023**
+User plays against the computer. The goal of the game is to find 
+opponent's ships before he finds yours.
 
-## Reminders
+Each battleship placed in a single sector.
 
-- Your code must be placed in the `run.py` file
-- Your dependencies must be placed in the `requirements.txt` file
-- Do not edit any of the other files or your code may not deploy properly
+![Responsive](https://i.ibb.co/gr6JZ0Z/2023-10-02-21-21-34.png)
+## How to play
+<hr>
 
-## Creating the Heroku app
+Based on classic game, where players try to find each other's
+ships. Player who finds all the ships first wins the round.
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+The player can see his own ships and blank opponent's field.
+The game has simple console design and uses basic characters 
+to indicate game objects.
 
-1. `heroku/python`
-2. `heroku/nodejs`
+".."  - unknown sector
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+" > " - sector with a ship
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+" X " - sector with a sunk ship
 
-Connect your GitHub repository and deploy as normal.
+" _ " - empty sector
 
-## Constraints
+## Features
+<hr>
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+### Existing features
+- Randomly generated fields for player and computer
+- Computer's ships are concealed from the user
 
----
+![battle field](https://i.ibb.co/3RxP0Qm/2023-10-02-22-06-13.png)
 
-Happy coding!
+- Play against the computer
+- Accepts user input
+- Maintains scores and number of ships left
+- Input validation - game accepts only valid coordinates
+- Help messages at the top of the screen to inform user
+about successful and unsuccessful turns, invalid inputs,
+etc.
+- If invalid coordinates entered - help message tells
+user why his input failed validation.
+
+![help message](https://i.ibb.co/sK9HSRk/2023-10-02-22-07-10.png)
+
+- Data maintained in class instances
+- Game screen refreshes each turn (program checks
+computer's OS to pick the correct command)
+- Rows are numbers and columns are letters (as in 
+classic game).
+- Player can quit the game at any time, entering "exit"
+instead of coordinates
+- Cheat mode. If user enters "mi6" instead of
+coordinates - computer's ships become visible. This feature
+was implemented for testing purpose
+
+![cheat mode](https://i.ibb.co/5kZhk1X/2023-10-02-22-07-25.png)
+
+### Future features
+- User can pick the number of ships and the field size
+- User can choose difficulty: ( e.g. easy - if computer finds 
+player's ship - it picks other coordinates, but just
+ones; medium - the game as it is; hard - computer "knows"
+location of one of the player's ships)
+- Allow player place the ships himself
+- Make ships of 1, 2 and 3 fields like in classic game
+
+## Data model
+<hr>
+Class for the game fields, which stores player, number of
+ships, their location, player's score and other additional
+information.
+
+Game creates two instances of this class for each player.
+The class has methods for placing the ships, drawing the 
+field, user input validation, player's and computer's
+turns.
+
+## Testing
+<hr>
+I have manually tested this project:
+
+- Played the game myself
+- Passed PEP8 linter to make sure that my code meets all
+the requirements
+- Given the game all types of invalid inputs
+- Implement cheat mode to make testing faster ("mi6")
+
+### Bugs
+Working on my project I found several bugs caused by 
+transforming data from stings to integers and back. I 
+fixed it by checking the code step by step and using
+print() function.
+
+### Remaining bugs
+
+- No bugs remaining
+
+### Validator PEP8
+- No errors were returned from pep8ci.herokuapp.com
+
+## Deployments
+<hr>
+The project was deployed using Code Institute's mock
+terminal for Heroku.
+Steps for deployment:
+
+- Create a new Heroku app
+- Set the buildbacks to Python and NodeJS in that order
+- Link the Heroku app to the repository
+- Click on "Deploy"
+
+## Credits
+<hr>
+
+- Code Institute for the deployment terminal
+- Code Institute for the idea and inspiration
+of project interface
+- Wikipedia for the details of the Battleships game

@@ -62,7 +62,7 @@ class GameField:
             print(user_name + "'s field")
         else:
             print("Computer's field")
-        print('   A   B   C   D   E')
+        print('    A   B   C   D   E')
         row_num = 1
 
         for row in self.field:
