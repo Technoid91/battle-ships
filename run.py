@@ -94,19 +94,23 @@ class GameField:
                 y = columns.index(column)
             # Checks if coordinates are specified in the correct order
             elif column in rows:
-                self.message = 'Wrong value\nLetter then figure. For example: B2'
+                self.message = 'Wrong value\nLetter then figure.' \
+                               'For example: B2'
                 return False
             else:
-                self.message = 'Wrong value\nLetter must be from A to E'
+                self.message = 'Wrong value\n' \
+                               'Letter must be from A to E'
                 return False
             if row in rows:
                 x = rows.index(row)
             else:
-                self.message = 'Please enter letter then figure.\nFigure must be from 1 to 5'
+                self.message = 'Please enter letter then figure.\n' \
+                               'Figure must be from 1 to 5'
                 return False
             # Checks if user picked the same coordinates as before
             if self.field[x][y] == EXPLORED or self.field[x][y] == DESTROYED:
-                self.message = 'This sector is already clear.\nPick another one'
+                self.message = 'This sector is already clear.\n' \
+                               'Pick another one'
                 return False
             self.coordinates = str(y) + str(x)
             return True
@@ -137,10 +141,10 @@ class GameField:
         if field_point == SHIP:
             self.ships -= 1
             self.field[x][y] = DESTROYED  # drowned ship
-            self.message = '\n\tNICE SHOT!' if self.player == 'computer' else ' '
+            self.message = '\nNICE SHOT!' if self.player == 'computer' else ''
             self.score += 1
         else:
-            self.message = '\n\t       missed' if self.player == 'computer' else ' '
+            self.message = '\nYou missed' if self.player == 'computer' else ''
             self.field[x][y] = EXPLORED  # missed target
 
     def stat(self):
