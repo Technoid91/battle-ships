@@ -3,6 +3,9 @@ import platform
 from random import randint
 
 user_name = ''
+SHIP = '  > '
+EXPLORED = '  _ '
+DESTROYED = '  X '
 
 
 class GameField:
@@ -33,8 +36,7 @@ class GameField:
                 self.field.append(row_list)
             else:
                 column = randint(0, 4)
-                # ' > ' - the ship symbol
-                row_list[column] = ' > '
+                row_list[column] = SHIP
                 self.field.append(row_list)
             row += 1
 
@@ -60,14 +62,14 @@ class GameField:
             print(user_name + "'s field")
         else:
             print("Computer's field")
-        print('   A    B    C    D    E')
+        print('   A   B   C   D   E')
         row_num = 1
 
         for row in self.field:
             row_2_draw = str(row_num) + ' '
             for element in row:
                 # hides computer's ships from the player
-                if self.player != 'player' and element == ' > ':
+                if self.player != 'player' and element == SHIP:
                     # if cheat mode disabled
                     if not self.show_ships:
                         element = ' .. '
@@ -103,7 +105,7 @@ class GameField:
                 self.message = 'Please enter letter then figure.\nFigure must be from 1 to 5'
                 return False
             # Checks if user picked the same coordinates as before
-            if self.field[x][y] == '  _ ' or self.field[x][y] == ' X ':
+            if self.field[x][y] == EXPLORED or self.field[x][y] == DESTROYED:
                 self.message = 'This sector is already clear.\nPick another one'
                 return False
             self.coordinates = str(y) + str(x)
@@ -130,16 +132,16 @@ class GameField:
                 y = randint(0, 4)
                 field_point = self.field[x][y]
                 # Avoids repetitions in shoots
-                if field_point == ' .. ' or field_point == ' >':
+                if field_point == ' .. ' or field_point == SHIP:
                     break
-        if field_point == ' > ':
+        if field_point == SHIP:
             self.ships -= 1
-            self.field[x][y] = ' X '  # drowned ship
+            self.field[x][y] = DESTROYED  # drowned ship
             self.message = '\n\tNICE SHOT!' if self.player == 'computer' else ' '
             self.score += 1
         else:
             self.message = '\n\t       missed' if self.player == 'computer' else ' '
-            self.field[x][y] = '  _ '  # missed target
+            self.field[x][y] = EXPLORED  # missed target
 
     def stat(self):
         """
