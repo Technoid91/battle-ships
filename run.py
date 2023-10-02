@@ -3,7 +3,9 @@ import platform
 from random import randint
 
 user_name = ''
-class GameField():
+
+
+class GameField:
 
     def __init__(self, player, ships):
         """
@@ -118,8 +120,8 @@ class GameField():
         # User's shoot
         if self.player == 'computer':
             coordinates = self.coordinates
-            x = int(coordinates[1:])     # rows
-            y = int(coordinates[:-1])    # columns
+            x = int(coordinates[1:])  # rows
+            y = int(coordinates[:-1])  # columns
             field_point = self.field[x][y]
         else:
             # Computer's shoot
@@ -171,19 +173,19 @@ def initial_screen():
     First screen user sees. It asks user is he wants to start the game
     and his name
     """
-    print('-'*40)
+    print('-' * 40)
     print('Welcome to BATTLE SHIPS')
     print('Board size: 5. Number of ships: 4')
-    print('-'*40)
+    print('-' * 40)
     s = None
     while s != 'y':
-        s = input('To start the game enter "y": ')
+        s = input('To start the game enter "y": \n')
         s = s.lower()  # in case if Caps lock is active
-        print('user input: '+s)
-    print('-'*40)
+        print('user input: ' + s)
+    print('-' * 40)
     global user_name
     while not user_name:
-        user_name = input('Please enter your name: ')
+        user_name = input('Please enter your name: \n')
         user_name = user_name[:10]
 
 
@@ -213,7 +215,7 @@ def game_interface(game_info):
     message = game_info[2]
     print('------------BATTLE SHIPS------------')
     print(f'Your ships: {user_ships}  |  Computer ships: {computer_ships}')
-    print('-'*40)
+    print('-' * 40)
     if message:
         print(message)
     else:
@@ -226,10 +228,10 @@ def game_round(player, computer):
     """
     player.draw_field()
     computer.draw_field()
-    print('-'*40)
+    print('-' * 40)
     print('Pick coordinates to strike, e.g. B5\n(enter "exit" to quit)')
-    print('-'*40)
-    user_shoot = input('Enter here: ')
+    print('-' * 40)
+    user_shoot = input('Enter here: \n')
     # Exiting the game
     if user_shoot == 'exit':
         computer.give_up()
@@ -293,7 +295,7 @@ def main():
         print("Your fleet was destroyed")
     print(f'SCORE:  {player_score}:{computer_score}')
     print('*' * 30)
-    input('press "enter" to exit')
+    input('press "enter" to exit\n')
     clear_screen()
 
 
