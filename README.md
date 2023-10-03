@@ -8,6 +8,9 @@ opponent's ships before he finds yours.
 
 Each battleship placed in a single sector.
 
+[Play here](https://tech-battle-ships-307012725313.herokuapp.com/)
+
+
 ![Responsive](https://i.ibb.co/gr6JZ0Z/2023-10-02-21-21-34.png)
 ## How to play
 <hr>
@@ -58,8 +61,6 @@ instead of coordinates
 - Cheat mode. If user enters "mi6" instead of
 coordinates - computer's ships become visible. This feature
 was implemented for testing purpose
-
-[Play here](https://tech-battle-ships-307012725313.herokuapp.com/)
 
 ![cheat mode](https://i.ibb.co/5kZhk1X/2023-10-02-22-07-25.png)
 
