@@ -59,6 +59,8 @@ instead of coordinates
 coordinates - computer's ships become visible. This feature
 was implemented for testing purpose
 
+[Play here](https://tech-battle-ships-307012725313.herokuapp.com/)
+
 ![cheat mode](https://i.ibb.co/5kZhk1X/2023-10-02-22-07-25.png)
 
 ### Future features
